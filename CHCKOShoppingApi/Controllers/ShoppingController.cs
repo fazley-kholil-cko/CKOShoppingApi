@@ -17,46 +17,104 @@ namespace CHCKOShoppingApi.Controllers
 
         public Dictionary<string,List<Item>> GetShoppingItems()
         {
-            shoppingRepo.initRepository();
+           
             return shoppingRepo.GetAll();
         }
 
-
-        public  List<Item> GetShoppingItems(string type)
+        public HttpResponseMessage GetItems(string type)
         {
-            shoppingRepo.initRepository();
-            return shoppingRepo.getByType(type);
+              IEnumerable<Item> items;
+              try
+              {
+                  items = shoppingRepo.getByType(type);
+                  return Request.CreateResponse(HttpStatusCode.OK, items);
+              }
+              catch (Exception e)
+              {
+                  return Request.CreateResponse(HttpStatusCode.NotFound);
+              } 
         }
 
-        public Item GetItem(string name,string type)
+        public HttpResponseMessage GetItem(string type, string name)
         {
-            //var products = _repository.GetProducts();
-            //var product = products.FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
-
-            //if (product == null)
-            //{
-            //    throw new HttpResponseException(
-            //        Request.CreateResponse(HttpStatusCode.NotFound));
-            //}
-            //else
-            //{
-            //    return product;
-            //}
-
-            //var items = shoppingRepo.getByType(type);
-            //var item = items.FirstOrDefault(i => i.name == name);
-            //if (item == null)
-            //{
-            //    throw new HttpResponseException(
-            //        Request.CreateResponse(HttpStatusCode.NotFound));
-            //}
-            //else
-            //    return item;
-
-            throw new HttpResponseException(
-                   Request.CreateResponse(HttpStatusCode.NotFound));
-
+            Item item;
+            try
+            {
+                item = shoppingRepo.getItem(type, name);
+                return Request.CreateResponse(HttpStatusCode.OK, item);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }     
         }
 
+        public HttpResponseMessage GetItem(string type, int id)
+        {
+            Item item;
+            try
+            {
+                item = shoppingRepo.getItem(type, id);
+                return Request.CreateResponse(HttpStatusCode.OK, item);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+        }
+
+        public HttpResponseMessage PostItem(string type,List<Item> items)
+        {
+            if (ModelState.IsValid)
+            {
+                items = shoppingRepo.Add(type,items);
+                var response = Request.CreateResponse(HttpStatusCode.Created, items);
+
+                string uri = Url.Link("DefaultApi", items);
+                response.Headers.Location = new Uri(uri);
+                return response;
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+        }
+  
+        public HttpResponseMessage Delete(string type,int id)
+        {
+           Item item;
+            try
+            {
+                item = shoppingRepo.getItem(type, id);
+                if (item != null)
+                {
+                    shoppingRepo.Delete(type, id);
+                    return Request.CreateResponse(HttpStatusCode.OK, item);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound);          
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }  
+        }
+
+        public HttpResponseMessage Put(string type,int id, Item item)
+        {
+            if (ModelState.IsValid && id == item.Id)
+            {
+                var result = shoppingRepo.Update(type,id, item);
+                if (result == false)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+        }
     }
 }

@@ -1,0 +1,16 @@
+ http://localhost:49707/api/Shopping?type=drinks&name=perona
+ api/Shopping/{id}?type={type}
+ 
+ 
+ post
+ http://localhost:49707/api/Shopping?type=drinks
+ data:
+ [{
+  "Id": 13,
+  "DatePurchased": "0001-01-01T00:00:00",
+  "name": "sample string 2",
+  "quantity": 3,
+  "price": 4.1,
+  "CapacityInLitre":0.5,
+  "bottleType":"glass"
+}]

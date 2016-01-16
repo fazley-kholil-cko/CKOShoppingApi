@@ -7,7 +7,7 @@ namespace CHCKOShoppingApi.Models
 {
     class Drink : Item
     {
-        public int CapacityInLitre { get; set; }
+        public double CapacityInLitre { get; set; }
         public string bottleType { get; set; }
     }
 }

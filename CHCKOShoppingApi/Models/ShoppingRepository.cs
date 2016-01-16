@@ -8,28 +8,30 @@ namespace CHCKOShoppingApi.Models
     class ShoppingRepository : IShoppingRepository
     {
         public static ShoppingRepository shoppingBasket= null;
-        public static Dictionary<string, List<Item>> Items = new Dictionary<string, List<Item>>();
+        public static readonly Dictionary<string, List<Item>> Items = new Dictionary<string, List<Item>>();
 
-        List<Item> drinkItems = new List<Item>
+        static List<Item> items = new List<Item>
              {
-                 new Drink { bottleType = "Pepsi", CapacityInLitre = 1,  name = "drink", price = 15, quantity = 1 },
-                 new Drink { bottleType = "Coca", CapacityInLitre = 1,  name = "drink", price = 15, quantity = 1 },
-                 new Drink { bottleType = "Sprite", CapacityInLitre = 1,  name = "drink", price = 15, quantity = 1 },
-                 new Drink { bottleType = "Fanta", CapacityInLitre = 1,  name = "drink", price = 15, quantity = 1 }
+                 new Item {Id=1, name = "pepsi", price = 15, quantity = 1 },
+                 new Item {Id=2, name = "fanta", price = 15, quantity = 1 },
+                 new Item {Id=3, name = "sprite", price = 15, quantity = 1 },
              };
 
-        private ShoppingRepository() { }
+        private ShoppingRepository() {}
 
         public void initRepository()
         {
-            ShoppingRepository.getInstance().addItems("drinks", drinkItems);
+            addItems("drinks", items);
         }
 
         public static ShoppingRepository getInstance()
         {
             if (shoppingBasket == null)
             {
-                return new ShoppingRepository();;
+                
+                shoppingBasket = new ShoppingRepository();
+                Items.Add("drinks", items);
+                return shoppingBasket;
             }
             else
                 return shoppingBasket;
@@ -53,38 +55,49 @@ namespace CHCKOShoppingApi.Models
             return Items;
         }
 
-        public List<Item> getByType(string itemType)
+        public IEnumerable<Item> getByType(string itemType)
         {
-            try 
-            { 
-                return Items[itemType];
+            return Items[itemType];
+        }
+
+        public Item getItem(string type, string itemName)
+        {
+            return Items[type].Find(i => i.name == itemName);
+        }
+
+        public Item getItem(string type, int itemId)
+        {
+            return Items[type].Find(i => i.Id == itemId);
+
+        }
+
+        public List<Item> Add(string itemType,List<Item> items)
+        {
+            ShoppingRepository.getInstance().addItems(itemType, items);
+            return items;
+        }
+
+        public void Delete(string type,int id)
+        {
+            var item = Items[type].FirstOrDefault(i => i.Id == id);
+            if (item != null)
+            {
+                Items[type].Remove(item);
             }
-            catch (Exception e) 
-            { 
-                return null; 
+        }
+
+        public bool Update(string type,int id,Item item)
+        {
+            Item rItem = Items[type].FirstOrDefault(p => p.Id == id);
+            if (rItem != null)
+            {
+                rItem.name = item.name;
+                rItem.quantity = item.quantity;
+                rItem.price = item.price;
+                return true;
             }
-            
+            return false;
         }
-
-        public Item getByName(string itemName)
-        {
-            var item = Items["drinks"].Find(i => i.name == itemName);
-            return item;
-        }
-
-        public Item Add()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update()
-        {
-            throw new NotImplementedException();
-        }
+   
     }
 }

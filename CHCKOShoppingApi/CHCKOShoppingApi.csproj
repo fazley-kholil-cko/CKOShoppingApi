@@ -166,11 +166,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Drink.cs" />
     <Compile Include="Models\IShoppingRepository.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ShoppingRepository.cs" />
-    <Compile Include="Models\Stationary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -68,3 +68,4 @@ E:\checkout\workspace\CHCKOShoppingApi\CHCKOShoppingApi\bin\zh-Hans\System.Spati
 E:\checkout\workspace\CHCKOShoppingApi\CHCKOShoppingApi\bin\zh-Hant\System.Spatial.resources.dll
 E:\checkout\workspace\CHCKOShoppingApi\CHCKOShoppingApi\obj\Debug\CHCKOShoppingApi.dll
 E:\checkout\workspace\CHCKOShoppingApi\CHCKOShoppingApi\obj\Debug\CHCKOShoppingApi.pdb
+E:\checkout\workspace\CHCKOShoppingApi\CHCKOShoppingApi\obj\Debug\CHCKOShoppingApi.csprojResolveAssemblyReference.cache
