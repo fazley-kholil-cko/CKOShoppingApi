@@ -8,7 +8,7 @@ namespace CHCKOShoppingApi.Models
 {
     interface IShoppingRepository
     {
-        Dictionary<string, List<Item>> GetAll(); //done
+        Dictionary<string, List<Item>> GetAll(); // implemented
         List<Item> getByType(string itemType);
         Item getByName(string itemName);
         Item Add();
