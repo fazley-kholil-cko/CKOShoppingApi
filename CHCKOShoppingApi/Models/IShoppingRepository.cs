@@ -15,6 +15,5 @@ namespace CHCKOShoppingApi.Models
         List<Item> Add(string itemType, List<Item> items);
         void Delete(string type, int id);
         bool Update(string type, int id, Item item);
-
     }
 }

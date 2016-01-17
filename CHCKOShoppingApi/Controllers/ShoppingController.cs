@@ -14,7 +14,6 @@ namespace CHCKOShoppingApi.Controllers
     {
         ShoppingRepository shoppingRepo = ShoppingRepository.getInstance();
        
-
         public Dictionary<string,List<Item>> GetShoppingItems()
         {
            
