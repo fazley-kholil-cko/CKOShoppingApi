@@ -360,6 +360,48 @@ Response:
 //status 201 created
 {"Id":6,"name":"coca cola","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"}
 ```
+###Adding a new category of items such as stationary :
+url :
+```html
+POST : http://localhost:49707/api/Shopping?type=stationary
+```
+```javascript
+BODY : [{"Id":6,"name":"pen parker","quantity":10,"price":1500.0,"DatePurchased":"0001-01-01T00:00:00"}]
+```
+Response:
+```javascript
+//status 201 created
+[{"Id":6,"name":"pen parker","quantity":10,"price":1500.0,"DatePurchased":"0001-01-01T00:00:00"}]
+```
+### Get all shopping items including newly category just added.
+url :
+```html
+GET : http://localhost:49707/api/Shopping
+```
+Response:
+```javascript
+{"drinks":
+          [{"Id":1,"name":"pepsi","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"},
+           {"Id":2,"name":"fanta","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"},
+           {"Id":3,"name":"perona","quantity":10,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"
+          }],
+"stationary":[{"Id":1,"name":"pen","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"},
+              {"Id":2,"name":"eraser","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"},
+              {"Id":6,"name":"pen parker","quantity":10,"price":1500.0,"DatePurchased":"0001-01-01T00:00:00"}
+              ]}
+```
+### To get shopping items of just a particular type
+url :
+```html
+GET : http://localhost:49707/api/Shopping?type=stationary
+```
+Response:
+```javascript
+[ {"Id":1,"name":"pen","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"},
+  {"Id":2,"name":"eraser","quantity":1,"price":15.0,"DatePurchased":"0001-01-01T00:00:00"},
+  {"Id":6,"name":"pen parker","quantity":10,"price":1500.0,"DatePurchased":"0001-01-01T00:00:00"}
+]
+ ```             
 
 use case (6a) : Delete an item of a praticular type by its id.
 url : 
