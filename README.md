@@ -5,8 +5,8 @@
 .Net Framework 4.5 and later
 
 ### How does checkout shopping api operate
-This Api enable you to store a list of items that you want to purchase at end of each month.
-For example as it has been given in your question that it shall be able to tore a drink. 
+This Api enables you to store a list of items that you want to purchase at end of each month.
+For example as it has been given in your question that it shall be able to store a drink. 
 In addition a shopping list can contain specific type or category of items such as stationary items.
 Therefore this Api has cater for that. A sample response can be as follows :
 ```html
